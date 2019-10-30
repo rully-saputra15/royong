@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { WelcomePage } from '../welcome/welcome.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +10,13 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(
+    public navCtrl: NavController,
+    public router: Router
+    ) {}
+
+    welcome() {
+      this.router.navigate(['/welcome']);
+    }
 
 }

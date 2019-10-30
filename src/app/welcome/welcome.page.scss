@@ -1,0 +1,37 @@
+@font-face {
+  font-family: "default";
+  src: url("/assets/fonts/Montserrat-Bold.otf");
+}
+
+.home-background {
+  background: url("/assets/image/bg_welcome.png") no-repeat fixed center;
+  background-size: cover;
+}
+
+.background {
+  position: absolute;
+  margin: auto;
+  pointer-events: none;
+}
+.foreground {
+  font-family: "Montserrat";
+  z-index: 2;
+  position: absolute;
+  margin: auto;
+  color: white;
+}
+.top {
+  font-family: "default";
+  z-index: 3;
+  position: absolute;
+  margin: auto;
+}
+
+.posisi {
+  left: 190px;
+  top: 557px;
+}
+
+.hijau {
+    background: #2d6b22;
+  }

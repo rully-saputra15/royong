@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormPage implements OnInit {
 
-  constructor() { }
-
   ngOnInit() {
   }
+
+  constructor(
+    public navCtrl: NavController,
+    public router: Router
+    ) {}
+
+    timeline() {
+      this.router.navigate(['/timeline']);
+    }
 
 }

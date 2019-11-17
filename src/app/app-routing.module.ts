@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   { path: 'welcome', loadChildren: './welcome/welcome.module#WelcomePageModule' },
   { path: 'timeline', loadChildren: './timeline/timeline.module#TimelinePageModule' },
+  { path: 'form', loadChildren: './form/form.module#FormPageModule' },
 ];
 
 @NgModule({

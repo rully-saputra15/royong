@@ -18,7 +18,7 @@ export class WelcomePage implements OnInit {
   }
 
   timeline() {
-    this.router.navigate(['/timeline']);
+    this.router.navigate(['/form']);
   }
 
 }

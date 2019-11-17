@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'timeline', loadChildren: './timeline/timeline.module#TimelinePageModule' },
   { path: 'form', loadChildren: './form/form.module#FormPageModule' },
   { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
+  { path: 'newevent', loadChildren: './newevent/newevent.module#NeweventPageModule' },
 ];
 
 @NgModule({

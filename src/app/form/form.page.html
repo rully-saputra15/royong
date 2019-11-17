@@ -1,3 +1,4 @@
+
 <ion-content class='ion-padding'>
 
   <ion-grid>
@@ -15,7 +16,7 @@
       </ion-col>
       <ion-col size="3">
         <div>
-          <ion-button expand="block" shape="round" size="medium" fill='gray' style="--color:green" (click)="timeline()">
+          <ion-button expand="block" shape="round" size="medium" fill='gray' style="--color:green" (click)="signup()">
             <font size="-3" class="ion-text-center font">SIGN UP</font>
           </ion-button>
         </div>
@@ -27,24 +28,29 @@
     </ion-row>
   </ion-grid>
 
-  <form #f="ngForm" (ngSubmit)="onLogin(f)">
-    <ion-list>
+  <ion-card>
+    <ion-list class="ion-padding">
       <ion-item>
-        <ion-input required ngModel name="email" type="email" placeholder="Email"></ion-input>
+        <ion-label position="floating" class="font" color="medium">Email</ion-label>
+        <ion-input required ngModel name="email" type="email" class="font"></ion-input>
       </ion-item>
+      <br>
       <ion-item>
-        <ion-input required ngModel name="pwd" type="password" minlength='6' placeholder="Password"></ion-input>
+        <ion-label position="floating" class="font" color="medium">Password</ion-label>
+        <ion-input required ngModel name="pwd" type="password" minlength='6' class="font">
+        </ion-input>
       </ion-item>
     </ion-list>
-    
+    <br>
+  </ion-card>
+
     <br><br>
 
     <ion-button expand="block" shape="round" size="medium" style="--background:green" (click)="timeline()">
       <font class="ion-text-center font">CONTINUE</font>
     </ion-button>
-    <br>
     <ion-button expand="block" fill='clear' (click)='presentSignUpModal()' style="--color:green">
       <font size="-1" class="ion-text-center font">FORGOT PASSWORD</font>
     </ion-button>
-  </form>
+
 </ion-content>

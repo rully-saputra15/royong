@@ -17,6 +17,10 @@ export class FormPage implements OnInit {
     public router: Router
     ) {}
 
+    signup() {
+      this.router.navigate(['/signup']);
+    }
+
     timeline() {
       this.router.navigate(['/timeline']);
     }

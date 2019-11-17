@@ -1,8 +1,14 @@
 @font-face {
-  font-family: "default";
-  src: url("/assets/fonts/Montserrat-Bold.otf");
-}
-
-.font {
-  font-family: "Montserrat";
-}
+    font-family: "default";
+    src: url("/assets/fonts/Montserrat-Bold.otf");
+  }
+  
+  .font {
+    font-family: "Montserrat";
+  }
+  
+  ion-card {
+    --background: white;
+    border-radius: 40px;
+  }
+  

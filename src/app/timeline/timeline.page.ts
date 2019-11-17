@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-timeline',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TimelinePage implements OnInit {
 
-  constructor() { }
+  public isSearchbarOpened = false;
+
+  constructor(public navCtrl: NavController) { }
 
   ngOnInit() {
+    this.isSearchbarOpened = false;
+  }
+
+  onSearch(event){
+    console.log(event.target.value);
   }
 
 }

@@ -8,15 +8,33 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
+import { AngularFirestoreModule, FirestoreSettingsToken } from 'angularfire2/firestore';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { Network } from '@ionic-native/network';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFirestoreModule,
+    HttpClientModule],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    AngularFireAuth,
+    BarcodeScanner,
+    Geolocation,
+    NativeGeocoder,
+    HttpClient,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: FirestoreSettingsToken, useValue: {}}
   ],
   bootstrap: [AppComponent]
 })

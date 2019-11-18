@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
@@ -10,7 +11,7 @@ export class TimelinePage implements OnInit {
 
   public isSearchbarOpened = false;
 
-  constructor(public navCtrl: NavController) { }
+  constructor(public navCtrl: NavController,public router : Router) { }
 
   ngOnInit() {
     this.isSearchbarOpened = false;
@@ -19,5 +20,10 @@ export class TimelinePage implements OnInit {
   onSearch(event){
     console.log(event.target.value);
   }
+  timeline(){
 
+  }
+  newEvent(){
+    this.router.navigate(['/newevent']);
+  }
 }

@@ -1,5 +1,7 @@
 {
   "name": "GoRong",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

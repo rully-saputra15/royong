@@ -1,6 +1,8 @@
+import { MainService } from './../main.service';
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -8,9 +10,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
-
+  loading :any;
   constructor(public navCtrl: NavController,
-    public router: Router) { }
+              public router: Router,
+              public mainSvc : MainService,
+              public loadingCtrl:LoadingController,
+              public alertCtrl:AlertController) { }
 
   ngOnInit() {
   }
@@ -18,5 +23,68 @@ export class SignupPage implements OnInit {
   form() {
     this.router.navigate(['/form']);
   }
+  timeline(){
 
+  }
+  async presentLoading(form:NgForm){
+    this.loading = await this.loadingCtrl.create({
+      message: 'Authentication',
+    });
+    await this.loading.present();
+    const data_nama = form.value.nama;
+    const data_username = form.value.username;
+    const data_password = form.value.password;
+    const data_email = form.value.email;
+    const data_alamat = form.value.alamat;
+    const data_noTel = form.value.telepon;
+    let recordAuth = {
+      email: data_email,
+      password: data_password,
+    };
+    let record = {
+      email:data_email,
+      nama:data_nama,
+      username:data_username,
+      alamat:data_alamat,
+      no_telepon:data_noTel,
+      id:null
+    }
+    this.mainSvc.createUser(recordAuth)
+        .then(
+          () => {
+            record.id = this.mainSvc.getUserIdRegister();
+            this.mainSvc.addDataUsers(record);
+            this.loading.dismiss();
+            this.presentAlert(1);
+          },
+          error => {
+            this.presentAlert(0);
+            this.loading.dismiss();
+        }
+        );
+  }
+  async presentAlert(nilai : any){
+    let header_data,subHeader_data;
+    if(nilai == 1){
+      header_data = 'Sukses'; 
+      subHeader_data = 'Akun anda sukses terdaftar';
+    }else{
+      header_data = 'Gagal'; 
+      subHeader_data = 'Akun anda gagal terdaftar';
+    }
+    const alert = await this.alertCtrl.create({
+      header: header_data,
+      subHeader: subHeader_data,
+      message: 'Silahkan ketuk OK untuk melanjutkan',
+      buttons: [
+        {
+          text:'Ok',
+          handler : () => {
+            this.router.navigate(['/form']);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 }

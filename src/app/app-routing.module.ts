@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'form', loadChildren: './form/form.module#FormPageModule' },
   { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
   { path: 'newevent', loadChildren: './newevent/newevent.module#NeweventPageModule' },
+  { path: 'menu', loadChildren: './menu/menu.module#MenuPageModule' },
 ];
 
 @NgModule({

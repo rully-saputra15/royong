@@ -1,9 +1,10 @@
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController, ActionSheetController } from '@ionic/angular';
 import { MainService } from './../main.service';
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import * as firebase from 'firebase';
 import { NgForm } from '@angular/forms';
+import { ImagePicker} from '@ionic-native/image-picker/ngx';
 
 @Component({
   selector: 'app-newevent',
@@ -20,9 +21,16 @@ export class NeweventPage implements OnInit {
   downloadURL : any;
   tanggal : any;
   nama : any;
+  loading : any;
+  options : any;
+  imageResponse : any;
   constructor(public mainSvc : MainService,
-              public alertCtrl : AlertController) { }
-
+              public alertCtrl : AlertController,
+              public loadingCtrl : LoadingController,
+              public actionSheetCtrl : ActionSheetController,
+              private imagePicker : ImagePicker
+              ) { }
+//public imagePicker : ImagePicker
   ngOnInit() {
     this.mainSvc.getAddress().subscribe((currAddress) => {
       this.address = currAddress;
@@ -39,7 +47,45 @@ export class NeweventPage implements OnInit {
   timeline(){
     
   }
-  
+  async presentActionSheet(){
+    const actionSheet = this.actionSheetCtrl.create({
+      header:'',
+      buttons : [
+        {
+          text:'Take Photo From Library',
+          handler : () => {
+              this.photoFromLibrary();
+          }
+        },
+        {
+          text:'Take Photo From Camera',
+          handler : () => {
+            this.takePhoto();
+          }
+        }
+      ]
+    });
+    (await actionSheet).present();
+  }
+  photoFromLibrary(){
+    this.options = {
+      width: 200,
+      quality: 30,
+      outputType: 1,
+      maximumImagesCount: 3
+    };
+    if(!this.imagePicker.hasReadPermission){
+      this.imagePicker.requestReadPermission();
+    }
+    this.imageResponse = [];
+    this.imagePicker.getPictures(this.options).then((results) => {
+      for (var i = 0; i < results.length; i++) {
+        this.imageResponse.push('data:image/jpeg;base64,' + results[i]);
+      }
+    }, (err) => {
+      console.log(err);
+    });
+  }
   takePhoto(){
     const cameraOptions: CameraOptions = {
       quality: 30,
@@ -53,7 +99,11 @@ export class NeweventPage implements OnInit {
     },(err) => {
     });
   }
-  onSubmit(form : NgForm){
+  async presentLoading(form:NgForm){
+    this.loading = await this.loadingCtrl.create({
+      message:'Uploading!',
+    });
+    await this.loading.present();
     this.nama = form.value.nama;
     this.tanggal = form.value.tanggal;
     console.log(this.tanggal);
@@ -76,15 +126,21 @@ export class NeweventPage implements OnInit {
         record['lat'] = this.lat;
         record['lng'] = this.lng;
         record['url'] = this.downloadURL;
+        record['anggota'] = {
+          'asdfasdfasd' : [
+            0
+          ]
+        };
         this.mainSvc.addDataEvent(record);
       })
+      this.loading.dismiss();
       this.showSuccesfulUploadAlert();
     });
   }
   async showSuccesfulUploadAlert() {
     let alert = this.alertCtrl.create({
-      header: 'Uploaded!',
-      subHeader: 'Picture is uploaded to Firebase',
+      header: 'Created!',
+      subHeader: 'Event succesfully created!',
       buttons: ['OK']
     });
     (await alert).present();

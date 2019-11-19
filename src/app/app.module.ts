@@ -1,3 +1,4 @@
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -32,6 +33,7 @@ import { Network } from '@ionic-native/network';
     BarcodeScanner,
     Geolocation,
     NativeGeocoder,
+    ImagePicker,
     HttpClient,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {}}
